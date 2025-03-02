@@ -1,0 +1,37 @@
+.searchContainer {
+  display: block;
+  margin: 24px 0 20px;
+  max-width: 400px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.searchLabel {
+  font-weight: bold;
+  font-size: 16px;
+  color: #333;
+  text-align: left;
+  box-sizing: border-box;
+}
+
+.searchInput {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 8px;
+}
+
+@media (max-width: 375px) {
+  .searchContainer {
+    max-width: 400px;
+    box-sizing: border-box;
+  }
+
+  .searchInput {
+    font-size: 14px;
+    padding: 8px;
+  }
+}

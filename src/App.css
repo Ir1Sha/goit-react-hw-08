@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin: 0;
+  max-width: 1200px;
+  padding: 20px;
+}
+
+h1 {
+  text-align: left;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 769px) {
+  .container {
+    align-items: center;
+    justify-content: center;
+  }
+}
