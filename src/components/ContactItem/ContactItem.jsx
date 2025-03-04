@@ -1,28 +1,79 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { deleteContact } from '../../redux/contacts/operations';
-import { resetFilter } from '../../redux/filters/slice';
-import { selectFilteredContacts } from '../../redux/contacts/slice';
-import styles from './ContactItem.module.css';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { deleteContact, updateContact } from '../../redux/contacts/operations';
+import ModalConfirm from '../ModalConfirm/ModalConfirm';
+import { Button, Box, Typography, Paper } from '@mui/material';
+import EditContactModal from '../EditContactModal/EditContactModal';
 
 const ContactItem = ({ id, name, number }) => {
   const dispatch = useDispatch();
-  const contacts = useSelector(selectFilteredContacts);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
   const handleDelete = () => {
     dispatch(deleteContact(id));
-    if (contacts.length === 1) {
-      dispatch(resetFilter());
-    }
+    setIsModalOpen(false);
+  };
+
+  const handleUpdate = (updatedContact) => {
+    dispatch(updateContact(updatedContact));
+    setIsEditModalOpen(false);
   };
 
   return (
-    <li className={styles.contactCard}>
-      <span className={styles.contactName}>{name}</span>:
-      <span className={styles.contactNumber}>{number}</span>
-      <button className={styles.deleteButton} onClick={handleDelete}>
-        Delete
-      </button>
-    </li>
+    <Paper
+      elevation={3}
+      sx={{
+        p: 2,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 2,
+        maxWidth: 300,
+        mx: 'auto',
+        textAlign: 'center'
+      }}
+    >
+      <Typography variant="h6">{name}</Typography>
+      <Typography variant="body1" color="textSecondary">
+        {number}
+      </Typography>
+
+      <Box sx={{ display: 'flex', gap: 1 }}>
+        <Button
+          variant="outlined"
+          size="small"
+          onClick={() => setIsEditModalOpen(true)}
+        >
+          Edit
+        </Button>
+
+        <Button
+          variant="contained"
+          color="error"
+          size="small"
+          onClick={() => setIsModalOpen(true)}
+        >
+          Delete
+        </Button>
+      </Box>
+
+      {isModalOpen && (
+        <ModalConfirm
+          message={`Are you sure you want to delete ${name}?`}
+          onConfirm={handleDelete}
+          onCancel={() => setIsModalOpen(false)}
+        />
+      )}
+
+      {isEditModalOpen && (
+        <EditContactModal
+          contact={{ id, name, number }}
+          onSave={handleUpdate}
+          onCancel={() => setIsEditModalOpen(false)}
+        />
+      )}
+    </Paper>
   );
 };
 

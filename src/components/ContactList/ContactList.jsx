@@ -3,24 +3,45 @@ import {
   selectFilteredContacts,
   selectLoading,
   selectError
-} from '../../redux/contacts/slice';
+} from '../../redux/contacts/selectors';
 import ContactItem from '../ContactItem/ContactItem';
-import styles from './ContactList.module.css';
+import { CircularProgress, Typography, Box } from '@mui/material';
 
 const ContactList = () => {
   const contacts = useSelector(selectFilteredContacts);
   const loading = useSelector(selectLoading);
   const error = useSelector(selectError);
 
-  if (loading) return <p>Loading contacts...</p>;
-  if (error) return <p>Error: {error}</p>;
+  if (loading)
+    return (
+      <Box display="flex" justifyContent="center" mt={3}>
+        <CircularProgress />
+      </Box>
+    );
+
+  if (error)
+    return (
+      <Typography variant="h6" color="error" textAlign="center">
+        Error: {error}
+      </Typography>
+    );
 
   return (
-    <ul className={styles.contactList}>
+    <Box
+      sx={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        gap: 2,
+        justifyContent: 'center',
+        alignItems: 'center',
+        mt: 3,
+        px: 2
+      }}
+    >
       {contacts.map(({ id, name, number }) => (
         <ContactItem key={id} id={id} name={name} number={number} />
       ))}
-    </ul>
+    </Box>
   );
 };
 

@@ -1,14 +1,15 @@
 import { Outlet } from 'react-router-dom';
 import AppBar from '../AppBar/AppBar';
+import { Box, Container } from '@mui/material';
 
 const Layout = () => {
   return (
-    <div>
+    <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <AppBar />
-      <main>
+      <Container component="main" sx={{ flexGrow: 1, mt: 8, mb: 8 }}>
         <Outlet />
-      </main>
-    </div>
+      </Container>
+    </Box>
   );
 };
 

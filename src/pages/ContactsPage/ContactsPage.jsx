@@ -4,6 +4,7 @@ import { fetchContacts } from '../../redux/contacts/operations';
 import ContactForm from '../../components/ContactForm/ContactForm';
 import ContactList from '../../components/ContactList/ContactList';
 import Filter from '../../components/Filter/Filter';
+import { Container, Typography, Box } from '@mui/material';
 
 const ContactsPage = () => {
   const dispatch = useDispatch();
@@ -13,12 +14,24 @@ const ContactsPage = () => {
   }, [dispatch]);
 
   return (
-    <div>
-      <h1>Your Contacts</h1>
-      <ContactForm />
-      <Filter />
-      <ContactList />
-    </div>
+    <Container>
+      <Typography variant="h4" textAlign="center" gutterBottom>
+        Your Contacts
+      </Typography>
+
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 4,
+          alignItems: 'center'
+        }}
+      >
+        <ContactForm />
+        <Filter />
+        <ContactList />
+      </Box>
+    </Container>
   );
 };
 
