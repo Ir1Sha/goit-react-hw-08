@@ -49,25 +49,22 @@ const App = () => {
             <Route
               path="register"
               element={
-                <RestrictedRoute redirectTo="/contacts">
-                  <RegistrationPage />
-                </RestrictedRoute>
+                <RestrictedRoute
+                  component={RegistrationPage}
+                  redirectTo="/contacts"
+                />
               }
             />
             <Route
               path="login"
               element={
-                <RestrictedRoute redirectTo="/contacts">
-                  <LoginPage />
-                </RestrictedRoute>
+                <RestrictedRoute component={LoginPage} redirectTo="/contacts" />
               }
             />
             <Route
               path="contacts"
               element={
-                <PrivateRoute redirectTo="/login">
-                  <ContactsPage />
-                </PrivateRoute>
+                <PrivateRoute component={ContactsPage} redirectTo="/login" />
               }
             />
           </Route>
